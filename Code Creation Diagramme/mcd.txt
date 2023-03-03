@@ -1,0 +1,82 @@
+https://app.quickdatabasediagrams.com/#/
+
+#  phpMyAdmin SQL Dump
+#  version 5.0.4
+#  https://www.phpmyadmin.net/
+#  Hôte : localhost:3306
+#  Généré le : ven. 24 fév. 2023 à 11:10
+#  Version du serveur :  5.7.33
+#  Version de PHP : 7.4.19
+
+# !40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT 
+# !40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS 
+# !40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION 
+# !40101 SET NAMES utf8mb4 
+#  Base de données : `expressfood`
+#  
+#  Structure de la table `client`
+client
+--
+id_client int(11) PK
+nom varchar(50)
+prenom varchar(50)
+email varchar(255)
+mdp varchar(255)
+telephone varchar(10)
+adresse varchar(255)
+ville varchar(100)
+code_postal varchar(10)
+
+#  
+#  Structure de la table `commande`
+commande
+--
+id_commande int(11) PK
+date_commande date
+client_id int(11) FK >- client.id_client
+livreur_id int(11) FK >- livreur.id_livreur
+prix_total float
+statut tinyint(1)
+
+#  
+#  Structure de la table `livreur`
+livreur
+--
+id_livreur int(11) PK
+nom varchar(50)
+prenom varchar(50)
+email varchar(255)
+mdp varchar(255)
+lattitude float
+longitude float
+statut tinyint(1)
+
+#  
+#  Structure de la table `platcommande`
+platcommande
+--
+id_plat_commande int(11) PK
+commande_id int(11) FK >- commande.id_commande
+plat_id int(11) FK >- platdujour.id_plat
+quantite int(11)
+
+#  
+#  Structure de la table `platdujour`
+platdujour
+--
+id_plat int(11) PK
+nom varchar(100)
+prix decimal(4,2)
+type varchar(7)
+date_plat date
+stock int(11)
+
+#  
+#  Structure de la table `stocklivreur`
+stocklivreur
+--
+id_stock_livreur int(11) PK
+id_livreur int(11) FK >- livreur.id_livreur
+id_plat int(11) FK >- platdujour.id_plat
+quantite int(11)
+

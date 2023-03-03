@@ -1,0 +1,23 @@
+Livreur->ExpressFood: Envoi sa localisation
+
+loop 
+    ExpressFood-->ExpressFood: Choix du livreur
+    ExpressFood-->Livreur: Proposition de la commande
+    
+    alt Si le livreur n'accepte pas la commande
+        Livreur->ExpressFood: Refus de la commande
+    
+    else Si le livreur accepte la commande
+        Livreur->ExpressFood: Validation de la commande
+        ExpressFood-->Livreur: Attribution de la commande
+    end
+
+end
+
+ExpressFood-->ExpressFood: Mise à jour des stocks
+ExpressFood-->Client: Notification prise en charge de la livraison
+ExpressFood-->Client: Informations temps réel de la livraison
+Livreur->ExpressFood: Commande livrée
+ExpressFood-->Client: Notification commande livrée
+
+

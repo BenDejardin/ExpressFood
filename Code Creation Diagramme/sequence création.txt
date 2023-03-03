@@ -1,0 +1,41 @@
+Client->ExpressFood: Consulter les plats du jours
+ExpressFood-->Client: Affichage des plats du jours
+
+loop 
+    Client->ExpressFood: Ajoute un plat au panier
+    ExpressFood-->Client: Plat ajouté
+end
+
+Client->ExpressFood: Valide son panier
+ExpressFood-->Client: Demande de connexion
+
+alt Connexion
+    Client->ExpressFood: Insère ses identifants
+    ExpressFood->ExpressFood: Vérification
+    ExpressFood-->Client: Accès au compte
+else Inscription
+    Client->ExpressFood: Insère ses informations personnelles
+    ExpressFood-->Client: Accès au compte
+end
+
+ExpressFood-->Client: Créations de la commande
+
+ExpressFood-->Client: Demande l'adresse de livraison
+
+Client->ExpressFood: Choix adresse de livraison
+ExpressFood-->Client: Demande de paiement
+Client->ExpressFood: Information de paiement
+
+alt Paiement accepté
+    ExpressFood-->Banque: Vérification du paiement
+    Banque->ExpressFood: Vérification réussi
+else Paiement refusé
+    ExpressFood-->Banque: Vérification du paiement
+    Banque->ExpressFood: Vérification échouer
+    destroy Banque
+end
+
+ExpressFood-->Client: Paiement réussi
+ExpressFood-->Livreur: Envoi une notification au livreur
+Livreur->ExpressFood: Accepte la commande
+ExpressFood-->Client: Accès au suivi de commande
